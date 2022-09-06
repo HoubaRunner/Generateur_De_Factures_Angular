@@ -1,0 +1,9 @@
+.navbar-light .navbar-nav .nav-link
+{
+    color: white;
+}
+.navbar-light .navbar-nav .nav-link.active-link
+{
+    color: #4e66f8;
+    text-decoration: underline;
+}

@@ -1,0 +1,206 @@
+<form class="form-style-9">
+    <div class="d-flex align-items-center">
+        <div style="display: flex;align-items: center;justify-content: end;">
+            <input style="display: none;" type="file" id="imageInput" />
+            <img name="Logo" id="Logo" class="logo ml-5 mt-5" src="..\assets\image\logo.jpg" (click)="HandleInput()"
+            style="border: 1px solid #4e66f8;" />
+            <img src="..\assets\image\close.png" class="deleteIconPhoto hideM"/>
+            
+        </div>
+        <div style="width: 20vw" class="B2">
+            <label for="Facture"> </label>
+            <input type="text" name="Facture" style="font-size: 35px; border: 2px solid #4e66f8" id="Facture"
+                v-model="Facture" class="form-control" placeholder="Facture" />
+
+            <label for="Referance"> </label>
+            <input type="text" style=" border: 2px solid #4e66f8" name="Referance" class="form-control"
+                id="Referance" v-model="Referance" placeholder="Référence (FAC-0001)" />
+        </div>
+    </div>
+
+    <div class="d-flex align-items-start mt-5">
+        <div id="clientSide" class="B3">
+            <h5 class="BB">Détails du client</h5>
+            <div style="width: 30vw" class="mt-2 mb-2 d-flex align-items-center">
+                <label for="sociale" class="labelForm">Raison sociale : </label>
+                <input type="text" class="form-control inputForm" name="sociale" id="sociale" v-model="sociale"
+                    placeholder="Raison sociale" />
+                <img src="..\assets\image\eye.png" title="enable" class="iconForm eye" (click)="handleDisabled($event)" />
+            </div>
+
+            <div style="width: 30vw" class="mt-2 mb-2 d-flex align-items-center">
+                <label for="fiscale" class="labelForm">Matricule fiscale :</label>
+                <input type="text" class="form-control inputForm" name="fiscale" id="fiscale" v-model="fiscale"
+                    placeholder="Matricule fiscale" />
+                <img src="..\assets\image\eye.png" title="enable" class="iconForm eye" (click)="handleDisabled($event)" />
+            </div>
+            <div style="width: 30vw" class="mt-2 mb-2 d-flex align-items-start">
+                <label for="Adresse" class="labelForm mt-2">Adresse :</label>
+                <textarea class="textAreaForm form-control" name="Adresse" id="Adresse" v-model="Adresse"
+                    placeholder="Adresse"></textarea>
+                <img src="..\assets\image\eye.png" title="enable" class="iconForm eye" (click)="handleDisabled($event)" />
+            </div>
+
+        </div>
+
+        <div class="B3" id="docSide" style="margin-left: auto">
+            <h5 class="BB">Détails du document</h5>
+            <div style="width: 30vw" class="mt-2 mb-2 d-flex align-items-center">
+                <label for="DC" class="labelForm">Date de création : </label>
+                <input type="date" class="form-control inputForm" name="DC" id="DC" v-model="DC"
+                    placeholder="Raison sociale" />
+                <img src="..\assets\image\eye.png" title="enable" class="iconForm eye" (click)="handleDisabled($event)" />
+            </div>
+            <div style="width: 30vw" class="mt-2 mb-2 d-flex align-items-center">
+                <label for="DE" class="labelForm">Date d'échéance : </label>
+                <input type="date" class="form-control inputForm" name="DE" id="DE" v-model="DE"
+                    placeholder="Matricule fiscale" />
+                <img src="..\assets\image\eye.png" title="enable" class="iconForm eye" (click)="handleDisabled($event)" />
+            </div>
+
+        </div>
+    </div>
+    <br />
+    <div class="blueLigne mt-5"></div>
+    <table class="table table-bordered" id="myTable" oninput="calculer()">
+        <thead>
+            <tr class="bg-light">
+                <th class="text-center">Référence</th>
+                <th class="text-center">Désignation</th>
+                <th class="text-center">Quantité</th>
+                <th class="text-center">Prix unitaire</th>
+                <th class="text-center">TVA</th>
+                <th class="text-center" style="flex-wrap: nowrap;">Total HT</th>
+
+            </tr>
+        </thead>
+        <tbody id="custom_select_result">
+            <!-- <tr>
+                <td>
+                    <input type="text" class="form-control" id="tabref" name="tabref" placeholder="Référence"
+                        value="" />
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="product" id="product"
+                        placeholder="Produit / Service" value="" />
+                </td>
+
+                <td>
+                    <input type="number" name="Quantity" id="Quantity" style="width:100px;" class="form-control"
+                        value="0"  />
+                </td>
+
+                <td>
+                    <input type="number" name="unitPrix" id="unitPrix" style="width:170px;" class="form-control"
+                        value="0"   />
+                </td>
+                <td>
+                    <select class=" form-select" (change)="calculTVAAfterChange()" >
+                        <option value="0">0%</option>
+                        <option value="7">7%</option>
+                        <option value="13">13%</option>
+                        <option value="19">19%</option>
+                    </select>
+                </td>
+                <td id="S1">0,000 DT</td>
+            </tr> -->
+        </tbody>
+    </table>
+    <div class="text-center btn_custom_select">
+        <button style="white-space: nowrap;" id="toogleMenu" type="button" class="btn btn-primary btnForm mt-3" (click)="handleMenu()">Ajouter une ligne<svg style="margin-left: 5px;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill"
+            viewBox="0 0 16 16">
+            <path
+                d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+        </svg></button>
+        <div class="hideMenu hideM" (click)="closeMenu($event)">
+            <div id="B1" type="button" (click)="addProduct()">Ajouter un produit</div>
+            <div id="B4" type="button" (click)="addSep()">Ajouter un séparateur</div>
+            <div id="B5" type="button" (click)="addSousTotal()">Ajouter un sous-total</div>
+        </div>
+    </div>
+    <br />
+
+    <br>
+
+
+
+
+
+    <div style="justify-content: space-around;padding-top:40px;padding-left:40px;padding-right:40px;padding-bottom:20px;border-radius:15px;"
+					class="d-flex mt-5">
+					<div class="B35">
+						<div style="width: 30vw" class="d-flex align-items-center">
+							<table class="table table-bordered" id="tableResult">
+								<tr class="bg-light">
+									<td class="text-center">TVA</td>
+									<td class="text-center">Base</td>
+									<td class="text-center">Montant</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="B35">
+						<div style="width: 30vw" class="d-flex align-items-center">
+							<table class="table table-bordered" id="tabOfTotal">
+								<tr class="bg-light">tabOfTotal
+									<td>Total HT</td>
+									<td id="TT1">0.000 DT </td>
+								</tr>
+								<tr>
+									<td>Total TVA</td>
+									<td id="TT2">0.000 DT </td>
+								</tr>
+								<tr class="bg-light">
+									<td colspan="2" id="ajoutTimbre" (click)="handleTimbre($event)" class="timbre"
+										style="font-weight: bold;"> +
+										Ajouter le timbre fiscal </td>
+								</tr>
+								<tr>
+									<td>Net à payer</td>
+									<td id="finalResult">0.000 DT</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+    <br />
+    <br />
+
+
+    <div style=" width: 100%" class="mt-2 mb-2 d-flex align-items-start">
+        <textarea type="text" name="Note" id="Note" v-model="Note" class="Note form-control"
+            style="margin-left: auto;margin-right: auto;width: 40%;" placeholder="Note"></textarea>
+    </div>
+    <br />
+    <br />
+    <div class="blueLigne"></div>
+    <div class="d-flex align-items-start mt-5">
+        <div class="B3">
+            <h5 class="BB" style="border: none;">INFORMATIONS DE L'ENTREPRISE</h5>
+            <div>
+                <label for="INFORMATIONS" class="labelForm"> </label>
+                <input type="text" style="width:40vw;" class="form-control form-control-lg inputForm"
+                    name="INFORMATIONS" style="width: 100%" id="INFORMATIONS" v-model="INFORMATIONS"
+                    placeholder="Société XYZ, 9 rue exemple, Tunis MF: 0000025 exemple@exemple.tn +216 26 999 999" />
+            </div>
+        </div>
+
+        <div class="B3" style="margin-left: auto ;justify-content: end;align-items: center;">
+            <h5 class="BB" style="border: none;">INFORMATIONS BANCAIRES</h5>
+            <div style="width: 22vw" class="mt-2 mb-2 d-flex align-items-center">
+                <label for="sociale" class="labelForm">Banque : </label>
+                <input type="text" class="form-control inputForm" name="Banque" id="Banque" v-model="Banque"
+                    placeholder="Banque" />
+            </div>
+
+            <div style="width: 22vw" class="mt-2 mb-2 d-flex align-items-center">
+                <label for="IBAN" class="labelForm">IBAN : </label>
+                <input type="text" class="form-control inputForm" name="IBAN" id="IBAN" v-model="IBAN"
+                    placeholder="TN59 XXXX XXXX XXXX" />
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary mx-1" type="reset">Télécharger Votre PDF </button>
+</form>
